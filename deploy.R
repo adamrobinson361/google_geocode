@@ -17,4 +17,4 @@ rsconnect::setAccountInfo(
 print(app_name)
 
 # Deploy
-rsconnect::deployApp(appName = app_name)
+rsconnect::deployApp(appName = app_name, appFiles = "app.R")
