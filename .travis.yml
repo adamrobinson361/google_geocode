@@ -1,0 +1,24 @@
+language: r
+r: 
+  - 3.6.2
+  
+sudo: required
+
+cache:
+  directories:
+  - $HOME/.local/share/renv
+  - $TRAVIS_BUILD_DIR/renv/library
+
+install:
+  - Rscript -e "renv::restore()"
+
+deploy:
+  provider: script
+  script: 
+  - R -f deploy.R
+  skip_cleanup: true
+  on: 
+    branch: 
+    - master
+    - develop
+    repo: adamrobinson361/google_geocode
