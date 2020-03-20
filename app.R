@@ -36,8 +36,13 @@ server <- function(input, output) {
     output$mymap <- renderLeaflet({
       
       leaflet() %>%
-        addTiles(urlTemplate = "http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", attribution = 'Google', options = providerTileOptions(noWrap = TRUE)) %>%
-        addMarkers(data = pnt)
+        addTiles(urlTemplate = "https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", attribution = 'Google', options = providerTileOptions(noWrap = TRUE), group = "Map") %>%
+        addTiles(urlTemplate = "https://mts1.google.com/vt/lyrs=s&hl=en&src=app&x={x}&y={y}&z={z}&s=G", attribution = 'Google', options = providerTileOptions(noWrap = TRUE), group = "Satellite") %>%
+        addMarkers(data = pnt) %>%
+        addLayersControl(
+          baseGroups = c("Map", "Satellite"),
+          options = layersControlOptions(collapsed = FALSE)
+        )
     })
     
     output$mytable = DT::renderDataTable({
