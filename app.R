@@ -7,6 +7,8 @@ library(DT)
 
 key_txt <- Sys.getenv("geocode_key")
 
+source("R/functions.R")
+
 ui <- dashboardPage(
   dashboardHeader(title = "Google Geocode"),
   dashboardSidebar(disable = TRUE),
@@ -47,7 +49,14 @@ server <- function(input, output) {
     
     output$mytable = DT::renderDataTable({
       
-      pnt
+      pnt %>%
+        data.frame() %>%
+        mutate(
+          lnglat = paste0(pnt$`1`[1], ",", pnt$`1`[2]),
+          eastnorth = lnglat_to_eastnorth(lnglat)
+        ) %>%
+        select(-pnt)
+      
     })
      
   }
