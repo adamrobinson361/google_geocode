@@ -53,7 +53,7 @@ server <- function(input, output) {
         data.frame() %>%
         mutate(
           lng_lat = paste0(pnt$`1`[1], ",", pnt$`1`[2]),
-          east_north = lnglat_to_eastnorth(lnglat)
+          east_north = lnglat_to_eastnorth(lng_lat)
         ) %>%
         select(-pnt)
       
